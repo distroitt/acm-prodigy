@@ -191,7 +191,7 @@ class Diploma(LanguageMixin, TemplateView):
         team = participant.team
         team_name = team.name
         participants = team.participants.all()
-        coach = team.coach
+        coach = team.coach.fullname
         generate_diploma(participants, team_name, coach)
         pdf_path = f"diploma{team_name}.pdf"
         response = FileResponse(
