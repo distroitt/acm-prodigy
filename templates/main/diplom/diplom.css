@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    background: #fff;
+    color: #000;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .header__promo {
+    font-size: 36px;
+    text-align: left;
+  }
+
+  .header, .winners, .team, .management {
+    text-align: left;
+  }
+
+  .participant ul {
+    list-style: none;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  .participant li {
+    margin: 5px 0;
+  }
+
+  .trainer {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .management {
+    font-style: italic;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  @media print {
+    @page {
+      size: A4 landscape;
+      margin: 20mm;
+    }
+
+    body {
+      width: 297mm;
+      height: 210mm;
+      margin: 0 auto;
+    }
+
+    .container {
+      width: calc(100% - 40mm);
+      padding: 0;
+    }
+  }
