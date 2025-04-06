@@ -3,18 +3,21 @@ import os
 from django.conf import settings
 from django.template.loader import render_to_string
 
-PATH_WKHTMLTOPDF = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+PATH_WKHTMLTOPDF = r'/usr/local/bin/wkhtmltopdf'
 CONFIG = pdfkit.configuration(wkhtmltopdf=PATH_WKHTMLTOPDF)
 
 TEMPLATE_PATH = os.path.join('templates', 'diplom', 'diplom.html')
 CSS_PATH = os.path.join('static', 'assets', 'css', 'style.css')
-OUTPUT_PDF = 'diploma.pdf'
 
 
-def generate_diploma():
+
+def generate_diploma(participants, team, coach):
     try:
+        output_pdf = f'diploma{team}.pdf'
         html_content = render_to_string(TEMPLATE_PATH, context={
-            'variable': 'value'
+            'participants': participants,
+            'team': team,
+            'coach': coach,
         })
 
         with open(CSS_PATH, 'r', encoding='utf-8') as css_file:
@@ -33,15 +36,8 @@ def generate_diploma():
         </html>
         """
 
-        pdfkit.from_string(full_html, OUTPUT_PDF, configuration=CONFIG)
-        print(f"Диплом успешно сохранён в {OUTPUT_PDF}")
+        pdfkit.from_string(full_html, output_pdf, configuration=CONFIG)
+        print(f"Диплом успешно сохранён в {output_pdf}")
 
     except Exception as e:
         print(f"Ошибка генерации: {str(e)}")
-
-
-if __name__ == "__main__":
-    if not settings.configured:
-        settings.configure()
-
-    generate_diploma()
