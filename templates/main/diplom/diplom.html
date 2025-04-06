@@ -11,27 +11,27 @@
     <header class="header">
       <h1 class="header__promo">
         <span>BSUIR OPEN XIII</span><br>
-        ДИПЛОМ III СТЕПЕНИ
+        ДИПЛОМ УЧАСТНИКА
       </h1>
     </header>
 
     <section class="winners">
       <span>Награждается команда</span>
-      <h3>[BSUIR] команда</h3>
+      <h3>{{ team }}</h3>
     </section>
 
     <section class="team">
       <div class="participant">
         <span>В составе</span>
         <ul>
-          <li>Участник</li>
-          <li>Участник</li>
-          <li>Участник</li>
+          {% for participant in participants %}
+          <li>{{ participant.firstname }} {{ participant.lastname }}</li>
+          {% endfor %}
         </ul>
       </div>
       <div class="trainer">
-        <p>тренер</p>
-        <span>Владымцев Вадим</span>
+        <p>Тренер</p>
+        <span>{{ coach }}</span>
       </div>
     </section>
 
