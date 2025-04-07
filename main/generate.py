@@ -1,10 +1,8 @@
-import pdfkit
 import os
 from django.conf import settings
 from django.template.loader import render_to_string
-
-PATH_WKHTMLTOPDF = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-CONFIG = pdfkit.configuration(wkhtmltopdf=PATH_WKHTMLTOPDF)
+from weasyprint import HTML, CSS
+from weasyprint.text.fonts import FontConfiguration
 
 TEMPLATE_PATH = os.path.join('templates', 'diplom', 'diplom.html')
 CSS_PATH = os.path.join('static', 'assets', 'css', 'style.css')
@@ -18,22 +16,18 @@ def generate_diploma():
         })
 
         with open(CSS_PATH, 'r', encoding='utf-8') as css_file:
-            css_content = f"<style>{css_file.read()}</style>"
+            css_content = css_file.read()
 
-        full_html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            {css_content}
-        </head>
-        <body>
-            {html_content}
-        </body>
-        </html>
-        """
+        font_config = FontConfiguration()
+        html = HTML(string=html_content)
+        css = CSS(string=css_content, font_config=font_config)
 
-        pdfkit.from_string(full_html, OUTPUT_PDF, configuration=CONFIG)
+        html.write_pdf(
+            OUTPUT_PDF,
+            stylesheets=[css],
+            font_config=font_config
+        )
+
         print(f"Диплом успешно сохранён в {OUTPUT_PDF}")
 
     except Exception as e:
@@ -42,6 +36,13 @@ def generate_diploma():
 
 if __name__ == "__main__":
     if not settings.configured:
-        settings.configure()
+        settings.configure(
+            TEMPLATES=[{
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [os.path.join(os.path.dirname(__file__), 'templates')],
+            }],
+            STATIC_URL='/static/',
+            STATICFILES_DIRS=[os.path.join(os.path.dirname(__file__), 'static')]
+        )
 
     generate_diploma()
