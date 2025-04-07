@@ -16,7 +16,7 @@ from main.models import Coach, Participant, Team
 from main.services import get_available_reg, get_credentials_show, get_olympiad_type
 from main.mixins import LanguageMixin
 from main.utils import Configuration
-from generate import generate_diploma
+from main.generate import generate_diploma
 
 class IndexView(LanguageMixin, TemplateView):
     template_name = 'main/index.html'

@@ -1,15 +1,11 @@
-import pdfkit
 import os
 from django.conf import settings
 from django.template.loader import render_to_string
+from weasyprint import HTML, CSS
+from weasyprint.text.fonts import FontConfiguration
 
-PATH_WKHTMLTOPDF = r'/usr/local/bin/wkhtmltopdf'
-CONFIG = pdfkit.configuration(wkhtmltopdf=PATH_WKHTMLTOPDF)
-
-TEMPLATE_PATH = os.path.join('templates', 'diplom', 'diplom.html')
+TEMPLATE_PATH = os.path.join('diplom', 'diplom.html')
 CSS_PATH = os.path.join('static', 'assets', 'css', 'style.css')
-
-
 
 def generate_diploma(participants, team, coach):
     try:
@@ -21,22 +17,18 @@ def generate_diploma(participants, team, coach):
         })
 
         with open(CSS_PATH, 'r', encoding='utf-8') as css_file:
-            css_content = f"<style>{css_file.read()}</style>"
+            css_content = css_file.read()
 
-        full_html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            {css_content}
-        </head>
-        <body>
-            {html_content}
-        </body>
-        </html>
-        """
+        font_config = FontConfiguration()
+        html = HTML(string=html_content)
+        css = CSS(string=css_content, font_config=font_config)
 
-        pdfkit.from_string(full_html, output_pdf, configuration=CONFIG)
+        html.write_pdf(
+            output_pdf,
+            stylesheets=[css],
+            font_config=font_config
+        )
+
         print(f"Диплом успешно сохранён в {output_pdf}")
 
     except Exception as e:
