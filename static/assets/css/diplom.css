@@ -2,71 +2,127 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
 
-  body {
+body {
     font-family: Arial, sans-serif;
     font-size: 20px;
     line-height: 1.5;
     background: #fff;
     color: #000;
-  }
+    background-image: url('./Diploma_1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    margin: 0;
+}
 
-  .container {
+.container {
     margin: 0 auto;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
+}
 
-  .header__promo {
+.header__promo {
     font-size: 36px;
     text-align: left;
-  }
+}
 
-  .header, .winners, .team, .management {
+.header,
+.winners,
+.team,
+.management {
     text-align: left;
-  }
+}
 
-  .participant ul {
+.winners {
+    margin-top: 100px;
+}
+
+.team {
+    margin-top: 30px;
+}
+
+.trainer {
+    margin-top: 30px;
+    font-size: 22px;
+}
+
+.management {
+    margin-top: 50px;
+}
+
+.participant ul {
     list-style: none;
     margin-top: 10px;
     padding-left: 0;
-  }
+}
 
-  .participant li {
+.participant li {
     margin: 5px 0;
-  }
+}
 
-  .trainer {
-    margin-top: 20px;
-    font-size: 22px;
-  }
-
-  .management {
-    font-style: italic;
-    margin-top: 30px;
+.management {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 5px;
-  }
+}
 
-  @media print {
+@media print {
     @page {
-      size: A4 landscape;
-      margin: 20mm;
+        size: A4 landscape;
+        margin: 0;
     }
 
     body {
-      width: 297mm;
-      height: 210mm;
-      margin: 0 auto;
+        width: 297mm;
+        height: 210mm;
+        margin: 0;
+        padding: 10mm;
+        background-image: url('./Diploma_1.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .container {
-      width: calc(100% - 40mm);
-      padding: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        gap: 15px;
     }
-  }
+
+    .header__promo {
+        font-size: 28px;
+    }
+
+    body,
+    .participant li,
+    .trainer {
+        font-size: 18px;
+    }
+
+    .winners {
+        margin-top: 200px;
+    }
+
+    .team {
+        margin-top: 25px;
+    }
+
+    .trainer {
+        margin-top: 25px;
+    }
+
+    .management {
+        margin-top: 40px;
+        display: block;
+    }
+}

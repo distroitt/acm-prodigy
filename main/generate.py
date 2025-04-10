@@ -5,8 +5,9 @@ from weasyprint import HTML, CSS
 from weasyprint.text.fonts import FontConfiguration
 
 TEMPLATE_PATH = os.path.join('diplom', 'diplom.html')
-CSS_PATH = os.path.join('static', 'assets', 'css', 'style.css')
-
+CSS_PATH = os.path.join('static', 'assets', 'css', 'diplom.css')
+BACKGROUND_IMAGE_PATH = os.path.join(settings.BASE_DIR, 'static', 'assets', 'img', 'Diploma_1.png')
+ABSOLUTE_IMAGE_PATH = f'file://{BACKGROUND_IMAGE_PATH.replace(os.sep, "/")}'
 def generate_diploma(participants, team, coach):
     try:
         output_pdf = f'diploma{team}.pdf'
@@ -18,7 +19,7 @@ def generate_diploma(participants, team, coach):
 
         with open(CSS_PATH, 'r', encoding='utf-8') as css_file:
             css_content = css_file.read()
-
+        css_content = css_content.replace('./Diploma_1.png', ABSOLUTE_IMAGE_PATH)
         font_config = FontConfiguration()
         html = HTML(string=html_content)
         css = CSS(string=css_content, font_config=font_config)
