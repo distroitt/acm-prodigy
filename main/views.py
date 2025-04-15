@@ -15,8 +15,8 @@ from config.settings import RECAPTCHA_PUBLIC_KEY
 from main.models import Coach, Participant, Team
 from main.services import get_available_reg, get_credentials_show, get_olympiad_type
 from main.mixins import LanguageMixin
-from main.utils import Configuration
-from main.generate import generate_diploma
+from main.utils import Configuration, generate_diploma
+import os
 
 class IndexView(LanguageMixin, TemplateView):
     template_name = 'main/index.html'
@@ -187,8 +187,7 @@ class TeamView(LanguageMixin, LoginRequiredMixin, View):
 
 class Diploma(LanguageMixin, TemplateView):
     def get(self, request, *args, **kwargs):
-        participant = request.user.participant
-        team = participant.team
+        team = request.user.participant.team
         team_name = team.name
         participants = team.participants.all()
         coach = team.coach.fullname
@@ -198,8 +197,6 @@ class Diploma(LanguageMixin, TemplateView):
             open(pdf_path, 'rb'),
             content_type='application/pdf'
         )
-        #response['Content-Disposition'] = f'attachment; filename="{pdf_path}"'
-        import os
         os.unlink(pdf_path)
         return response
 

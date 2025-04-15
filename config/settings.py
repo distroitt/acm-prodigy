@@ -22,26 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "1"
 
-RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_PUBLIC_KEY = ""
+RECAPTCHA_SECRET_KEY = ""
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True if os.getenv("DEBUG") else False
+DEBUG = True
 
-if DEBUG:
-    RECAPTCHA_PUBLIC_KEY = os.getenv("DBG_RECAPTCHA_PUBLIC_KEY")
-    RECAPTCHA_SECRET_KEY = os.getenv("DBG_RECAPTCHA_SECRET_KEY")
 
 # Allowed hosts configuration
 
 allowed_hosts = os.getenv("ALLOWED_HOSTS",'localhost').split(',')
-cors_origins = os.getenv("CORS_ORIGINS",'localhost').split(',')
+cors_origins = os.getenv("CORS_ORIGINS",'http://localhost').split(',')
 
 ALLOWED_HOSTS = allowed_hosts
 CSRF_TRUSTED_ORIGINS = cors_origins
@@ -101,7 +99,7 @@ SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 SQLITE_MODE = os.getenv("SQLITE_MODE")
-if not SQLITE_MODE: # pragma: no cover
+if SQLITE_MODE: # pragma: no cover
     PG_NAME = os.getenv("PG_NAME", 'postgres')
     PG_USER = os.getenv('PG_USER', 'postgres')
     PG_PASSWORD = os.getenv('PG_PASSWORD', 'postgres')
@@ -208,6 +206,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+#Diploma template path
+TEMPLATE_PATH = "diplom/diplom.html"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
