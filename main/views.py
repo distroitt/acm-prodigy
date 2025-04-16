@@ -1,3 +1,4 @@
+import os
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -16,7 +17,6 @@ from main.models import Coach, Participant, Team
 from main.services import get_available_reg, get_credentials_show, get_olympiad_type
 from main.mixins import LanguageMixin
 from main.utils import Configuration, generate_diploma
-import os
 
 class IndexView(LanguageMixin, TemplateView):
     template_name = 'main/index.html'
