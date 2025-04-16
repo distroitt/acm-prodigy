@@ -20,6 +20,7 @@ class Command(BaseCommand):
         if _:
             obj.value='false'
             obj.save()
+            
         obj, _ = Settings.objects.get_or_create(name="configuration.registration.student_group")
         if _:
             obj.value='false'
