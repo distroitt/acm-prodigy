@@ -1,10 +1,11 @@
-from main.models import Settings
 import os
+from pathlib import Path
 from django.conf import settings
 from django.template.loader import render_to_string
-from weasyprint import HTML, CSS
+from weasyprint import CSS, HTML
 from weasyprint.text.fonts import FontConfiguration
-CSS_PATH = os.path.join('static', 'assets', 'css', 'diplom.css')
+from main.models import Settings
+CSS_PATH = Path('static/assets/css/diplom.css')
 
 class Cfg:
 
